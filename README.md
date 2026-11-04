@@ -2,7 +2,7 @@
 
 > 반려동물을 맡길 때, 돌봄 정보는 링크 하나로. 맡긴 뒤에도 완료 체크로 안심하세요.
 
-- **배포 URL**: https://(배포 후 Vercel 주소 입력).vercel.app
+- **배포 URL**:  **배포 URL**: https://bompet-landing.vercel.app
 - **코드잇 스프린트 미션 5**
 
 ## 서비스 소개

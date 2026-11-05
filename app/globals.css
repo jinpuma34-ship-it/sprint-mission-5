@@ -1,0 +1,139 @@
+/* =========================================================
+   봄펫 글로벌 스타일
+   - Tailwind CSS v4: 설정 파일 없이 이 CSS 안에서 디자인 토큰을 정의해요.
+   - 색상·폰트·모서리는 "봄펫 디자인 가이드(스타일 가이드)" 값을 그대로 옮겼어요.
+   ========================================================= */
+@import "tailwindcss";
+
+/* ---------- 폰트 (눈누 CDN) ----------
+   Display: 티머니 라운드바람 / Body: 나눔스퀘어라운드
+   CDN이 막히면 아래 font-family의 시스템 폰트로 자동 대체돼요. */
+@font-face {
+  font-family: "TmoneyRoundWind";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff") format("woff");
+  font-weight: 700 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* ---------- 디자인 토큰 (shadcn/ui가 읽는 변수 이름) ---------- */
+:root {
+  --background: #f2f8fc;          /* Background — Blue 50 */
+  --foreground: #162b3a;          /* Text — Blue Gray 900 */
+  --card: #ffffff;
+  --card-foreground: #162b3a;
+  --primary: #4c94c8;             /* Primary — Logo Blue 500 */
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-foreground: #2f6f9e;
+  --muted: #e7eef3;               /* Surface — Blue Gray 100 */
+  --muted-foreground: #6b8191;    /* Caption — Blue Gray 500 */
+  --accent: #367faf;              /* Accent — Deep Sky */
+  --accent-foreground: #ffffff;
+  --destructive: #e5484d;
+  --border: #dbe6ee;
+  --input: #dbe6ee;
+  --ring: #4c94c8;
+  --radius: 0.75rem;              /* 버튼 12px */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* 봄펫 전용 색 */
+  --color-primary-dark: #2f6f9e;  /* Primary Dark — Blue 700 (hover, 링크) */
+  --color-ink: #162b3a;           /* 제목, 본문 */
+  --color-ink-sub: #354d5e;       /* 서브 텍스트 */
+  --color-caption: #6b8191;       /* 캡션, 플레이스홀더 */
+  --color-surface: #e7eef3;       /* 카드 배경, 구분선 */
+  --color-success: #2f9e6b;       /* 완료 표시 */
+  --color-warning: #d9822b;       /* 미완료·주의 */
+
+  /* 폰트 */
+  --font-display: "TmoneyRoundWind", "NanumSquareRound", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-sans: "NanumSquareRound", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+
+  /* 모서리: 태그 4 / 입력 8 / 버튼 12 / 카드 16 / 시트 24 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all; /* 한국어 단어가 중간에서 끊기지 않게 */
+  }
+  /* 헤더(64px)에 가리지 않도록 앵커 이동 시 여백 */
+  section[id] {
+    scroll-margin-top: 72px;
+  }
+}
+
+/* ---------- 스크롤 등장 애니메이션 (components/common/Reveal.tsx) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* 움직임 줄이기 설정을 켠 사용자에게는 애니메이션 없이 바로 보여줘요 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* 체험 데모 안 토스트 등장 */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+.animate-toast {
+  animation: toast-in 0.25s ease-out;
+}
